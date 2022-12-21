@@ -7,7 +7,8 @@ export const ChangeCurrenciesContainer = styled.div`
   top: 30vh;
   margin: 0 auto;
   width: 80vw;
-  height: 402px;
+  height: 400px;
+  padding: 10px;
   background-color: #ffffff;
   box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
@@ -16,6 +17,16 @@ export const ChangeCurrenciesContainer = styled.div`
   align-items: center;
   flex-wrap: wrap;
   @media screen and (max-width: 725px) {
-      flex-direction: column;
+    flex-direction: column;
+    height: 70vh;
   }
 `;
+export const ButtonChange = styled.button`
+background-color: transparent;
+border: none;
+  @media screen and (max-width: 725px) {
+    position: relative;
+    right: 35%;
+  }
+
+`

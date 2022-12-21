@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import CurrenciesContext from "../context/currencies/currencies-context";
 import styled, { css } from "styled-components";
 import { ArrowDropdown } from "../utils/icons";
@@ -27,6 +27,7 @@ const SelectLabelButton = styled.button`
   width: 100%;
   background: transparent;
   border: 1px solid #cccccc;
+  font-weight: bold;
   span {
     font-weight: 100;
   }
@@ -34,7 +35,7 @@ const SelectLabelButton = styled.button`
 
 const DropdownStyle = styled.div`
   position: fixed;
-  margin-top:280px;
+  margin-top: 280px;
   max-height: 160px;
   width: 19.5%;
   overflow: scroll;
@@ -57,11 +58,11 @@ const DropdownStyle = styled.div`
 const DropdownItem = styled.div`
   width: auto;
   display: flex;
-  color: white;
+  color: #ffff;
   margin: 0.15rem 0;
   padding: 2px 15px;
   cursor: pointer;
-  font-weight: lighter;
+  font-weight: 400;
   font-size: 1em;
   &:hover,
   :focus,
@@ -71,9 +72,21 @@ const DropdownItem = styled.div`
 `;
 
 export const SelectDropdown = ({ onChange, spanData }) => {
-  const { getCurrencies, currencies } = useContext(CurrenciesContext);
-  const [defaultCurrencie, setDefaultCurrencie] = useState("EUR");
-  const result = Object.values(currencies);
+  const {
+    getCurrencies,
+    currencies,
+    getCurrenciesRates,
+    baseFromRate,
+    getBaseRate,
+    getChangeRate,
+    currencyFrom,
+    currencyTo,
+    getCurrencyFrom,
+    getCurrencyTo,
+  } = useContext(CurrenciesContext);
+  
+  const resultCurrencies = Object.values(currencies);
+  const currenciesCode = Object.keys(currencies);
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -85,26 +98,38 @@ export const SelectDropdown = ({ onChange, spanData }) => {
   const handleValueChange = (value) => {
     getCurrencies(value);
   };
-  const handleChange = (value) => {
-    setDefaultCurrencie(value)
-    console.log(value, "prueba valor");
+  const handleChange = (value, index) => {
+    // eslint-disable-next-line no-lone-blocks
+    if (spanData === "FROM") {
+      getBaseRate(currenciesCode?.[index]);
+      getCurrencyFrom(value);
+    } else {
+      getChangeRate(currenciesCode?.[index]);
+      getCurrencyTo(value);
+    }
+
     handleValueChange(value);
 
     if (onChange) onChange(value);
     handleClose();
   };
+
+  useEffect(() => {
+    getCurrenciesRates(baseFromRate);
+  }, [baseFromRate]);
+
   return (
     <SelectContainer>
       <span>{spanData}</span>
       <SelectLabelButton onClick={handleOpen} aria-label="Button Select Label">
-        <span>{defaultCurrencie}</span>
+        <span>{spanData === "FROM" ? currencyFrom : currencyTo}</span>
         <ArrowDropdown />
       </SelectLabelButton>
 
       <DropdownStyle isVisible={open} open={open}>
-        {result?.map((value, index) => (
+        {resultCurrencies?.map((value, index) => (
           <DropdownItem
-            onClick={() => handleChange(value.name)}
+            onClick={() => handleChange(value.name, index)}
             key={index}
           >
             {value.name}

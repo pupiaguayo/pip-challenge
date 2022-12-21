@@ -3,8 +3,8 @@ import styled from "styled-components";
 export const AdviceUseContainer = styled.div`
   height: 100px;
   width: 40%;
-  margin-top: 30px;
-  font-size: 14px;
+  margin-top: 100px;
+  font-size: 12px;
   background: #e8f3ff;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.05);
   border-radius: 8px;

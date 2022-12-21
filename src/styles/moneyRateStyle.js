@@ -2,11 +2,12 @@ import styled from "styled-components";
 
 export const MoneyRateContainer = styled.div`
   height: 150px;
+  margin-top: 10px;
   width: 50%;
   display: flex;
   justify-content: flex-start;
   @media screen and (max-width: 725px) {
-    display: none;
+    width: 100%;
   }
 `;
 
@@ -21,8 +22,17 @@ export const MoneyRateInfo = styled.div`
   }
   span {
     line-height: 36px;
-
     font-weight: 400;
     color: #757575;
+  }
+  @media screen and (max-width: 725px) {
+    margin: auto;
+    p{
+    font-size: 16px;
+    text-transform: uppercase;
+  }
+  span {
+    line-height: 22px;
+  }
   }
 `;

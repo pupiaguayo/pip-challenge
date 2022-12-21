@@ -6,6 +6,7 @@ export const TitleContainer = styled.div`
   color: #ffffff;
   display: flex;
   justify-content: center;
+  text-align: center;
   h2{
     margin-top: 8vh;
   }
