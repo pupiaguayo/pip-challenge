@@ -1,5 +1,8 @@
-import React, { useEffect, useContext } from "react";
-import { ChangeCurrenciesContainer, ButtonChange } from "../styles/inputsContainerStyles";
+import React, { useState, useEffect, useContext } from "react";
+import {
+  ChangeCurrenciesContainer,
+  ButtonChange,
+} from "../styles/inputsContainerStyles";
 import { CustomInput } from "./customInput";
 import { ChangeIcon } from "../utils/icons";
 import { MoneyRate } from "./moneyRate";
@@ -9,13 +12,29 @@ import { LastUpdated } from "./lastUpdated";
 import CurrenciesContext from "../context/currencies/currencies-context";
 
 export const CurrenciesInputs = () => {
-  const { amount, getCurrencies, getInputAmount } =
-    useContext(CurrenciesContext);
+  const {
+    amount,
+    getCurrencies,
+    getInputAmount,
+    getBaseRate,
+    getCurrencyFrom,
+    getCurrencyTo,
+    getChangeRate,
+    changeRate,
+    currencyTo,
+    currencyFrom,
+    baseFromRate,
+  } = useContext(CurrenciesContext);
 
   const handleChange = (e) => {
     getInputAmount(e.target.value);
   };
-
+  const handleClick = () => {
+    getBaseRate(changeRate);
+    getCurrencyFrom(currencyTo);
+    getCurrencyTo(currencyFrom);
+    getChangeRate(baseFromRate);
+  };
   useEffect(() => {
     getCurrencies();
   }, []);
@@ -24,11 +43,11 @@ export const CurrenciesInputs = () => {
     <ChangeCurrenciesContainer>
       <>
         <CustomInput amount={amount} onChange={handleChange} />
-        <SelectDropdown spanData="FROM" />
-        <ButtonChange>
+        <SelectDropdown spanData={"FROM"} />
+        <ButtonChange onClick={handleClick}>
           <ChangeIcon />
         </ButtonChange>
-        <SelectDropdown spanData="TO" />
+        <SelectDropdown spanData={"TO"} />
       </>
       <MoneyRate />
       <AdviceUse />

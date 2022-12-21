@@ -23,6 +23,7 @@ export const ChangeCurrenciesContainer = styled.div`
 `;
 export const ButtonChange = styled.button`
 background-color: transparent;
+cursor: pointer;
 border: none;
   @media screen and (max-width: 725px) {
     position: relative;

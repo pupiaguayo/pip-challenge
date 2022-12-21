@@ -34,10 +34,11 @@ const SelectLabelButton = styled.button`
 `;
 
 const DropdownStyle = styled.div`
-  position: fixed;
+  position: absolute;
+  z-index: 999;
   margin-top: 280px;
   max-height: 160px;
-  width: 19.5%;
+  width: 24%;
   overflow: scroll;
   display: flex;
   flex-direction: column;
@@ -51,7 +52,7 @@ const DropdownStyle = styled.div`
       visibility: hidden;
     `}
   @media screen and (max-width: 725px) {
-    width: 64%;
+    width: 77%;
   }
 `;
 
@@ -84,11 +85,10 @@ export const SelectDropdown = ({ onChange, spanData }) => {
     getCurrencyFrom,
     getCurrencyTo,
   } = useContext(CurrenciesContext);
-  
+
   const resultCurrencies = Object.values(currencies);
   const currenciesCode = Object.keys(currencies);
   const [open, setOpen] = useState(false);
-
   const handleOpen = () => {
     setOpen(true);
   };
@@ -107,7 +107,6 @@ export const SelectDropdown = ({ onChange, spanData }) => {
       getChangeRate(currenciesCode?.[index]);
       getCurrencyTo(value);
     }
-
     handleValueChange(value);
 
     if (onChange) onChange(value);

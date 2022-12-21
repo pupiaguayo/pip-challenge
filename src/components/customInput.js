@@ -22,7 +22,7 @@ const Input = styled.input`
   border-radius: 4px;
 `;
 const preventNegativeValues = (e) =>
-  ["e", "E", "+", "-"].includes(e.key) && e.preventDefault();
+  ["e", "E", "+", "-", "."].includes(e.key) && e.preventDefault();
 export const CustomInput = ({ onChange }) => {
   return (
     <Container>
